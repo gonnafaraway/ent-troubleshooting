@@ -5,3 +5,6 @@ Help guide for Entgo.io community (https://t.me/entgoru)
 * Это особенность ent, когда нет нормальной возможности сделать O2O, в таком случае технически проще описать схему как M2M без ключей Unique у полей в schema и только в этом случае ошибки не будет, иначе сущности со связями будут уникальными и создать вторую и более связь будет невозможно
 # Error: loading schema: entc/load: no schema found in: (https://github.com/ent/ent/issues/3864 or another)
 * На данный момент ent не поддерживает go версии 1.22, с высокой долей вероятности у вас либо сам компилятор версии 1.22, либо проект. Откатитесь до 1.21.7 и все заработает :)
+# entc/load: schema "Entity": mixin "IDMixin": field "id": expect type (func() uuid.UUID) for uuid default value
+* Ошибка возникает из-за уже сгенерированных файлов ent с ошибками, необходимо убрать поле Default, запустить go generate, затем снова добавить поле Default, и снова запустить go generate ... , после этого ошибка исчезнет.
+
