@@ -19,4 +19,18 @@ Help guide for Entgo.io community (https://t.me/entgoru)
 * На данный момент ent не поддерживает go версии 1.22, с высокой долей вероятности у вас либо сам компилятор версии 1.22, либо проект. Откатитесь до 1.21.7 и все заработает :)
 ### entc/load: schema "Entity": mixin "IDMixin": field "id": expect type (func() uuid.UUID) for uuid default value
 * Ошибка возникает из-за уже сгенерированных файлов ent с ошибками, необходимо убрать поле Default, запустить go generate, затем снова добавить поле Default, и снова запустить go generate ... , после этого ошибка исчезнет.
+### Как создать составной первичный ключ?
+```go
+func (UserGroup) Annotations() []schema.Annotation {
+    return []schema.Annotation{
+        entsql.PrimaryKey("user_id", "group_id")
+    }
+}
 
+func (UserGroup) Fields() []ent.Field {
+    return []ent.Field{
+        field.Int("user_id"),
+        field.Int("group_id"),
+    }
+}
+```
